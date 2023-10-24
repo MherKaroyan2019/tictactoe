@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: #fff8ee;
+}
+
+.matrix-input-block {
+    width: 300px;
+    padding: 15px;
+    background-color: #f7f2f2;
+    box-shadow: 6px 6px 14px 4px rgba(134,124,113,0.7);
+}
+
+.matrix-input-block label, .matrix-input-block input, .matrix-input-block button {
+    display: block;
+    width: 100%;
+    height: 30px;
+}
+
+.matrix-input-block label {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.matrix-input-block input {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.matrix-input-block button {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#block-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block {
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    border: 2px solid teal;;
+    position: relative;
+}
+.x:after {
+    content: '';
+    height: 60px;
+    border-left: 2px solid teal;
+    position: absolute;
+    transform: rotate(45deg);
+    left: 28px;
+}
+
+.x:before {
+    content: '';
+    height: 60px;
+    border-left: 2px solid teal;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 28px;
+}
+
+.o::before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 2px solid teal;
+    border-radius: 50%;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    transform: rotate(45deg);
+}
+
+#retry {
+    width: 200px;
+    padding: 15px, 0;
+    display: none;
+}
