@@ -90,7 +90,7 @@ function createMatrix(){
         for (let x = 0; x < size; x++) {
             matrix[y][x] = 0;
             let block = document.createElement("div");
-            block.setAttribute("class", "block " + y + "" + x);
+            block.setAttribute("class", "block " + y + "-" + x);
             block.addEventListener("click", tictactoe);
 
             block_container.appendChild(block);
@@ -99,7 +99,7 @@ function createMatrix(){
 }
 
 function tictactoe(){
-    coordinate = this.getAttribute("class").split(" ")[1].split("");
+    coordinate = this.getAttribute("class").split(" ")[1].split("-");
 
     matrix[+coordinate[0]][+coordinate[1]] = turn;
 
