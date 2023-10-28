@@ -3,13 +3,15 @@ let matrix = [];
 let size;
 
 let block_container; 
+let game_end = false;
 
 let turn = "x";
 
 
 
 function winner(turn){
-    let winner = turn;
+    let winner;
+    let isDraw = true;
     for(let y = 0; y < matrix.length; y++){
         for (let x = 0; x < matrix[y].length; x++) {
             if(matrix[y][x] != turn){
@@ -56,10 +58,8 @@ function winner(turn){
                 if(matrix[y][x] != turn){
                     console.log([x,y,matrix[y][x],turn]);
                     winner = "";
-                    console.log(winner)
                     break;
                 }else {
-                    console.log([x,y,matrix[y][x],turn, 1]);
                     winner = turn;
                 }   
             }
@@ -70,6 +70,22 @@ function winner(turn){
     }
     if(winner == turn){
         return turn;
+    }
+
+    for(let x = 0; x < matrix.length; x++){
+        for (let y = 0; y < matrix[x].length; y++) {
+            if(matrix[y][x] == 0){
+                isDraw = false;
+                break;
+            }
+        }
+        if(isDraw == false){
+            break;
+        }
+    }
+
+    if(isDraw == true){
+        return "draw";
     }
 
     return winner
@@ -99,27 +115,32 @@ function createMatrix(){
 }
 
 function tictactoe(){
-    coordinate = this.getAttribute("class").split(" ")[1].split("-");
+    if(game_end == false){
+        coordinate = this.getAttribute("class").split(" ")[1].split("-");
 
-    matrix[+coordinate[0]][+coordinate[1]] = turn;
+        matrix[+coordinate[0]][+coordinate[1]] = turn;
 
-    this.setAttribute("class", "block " + turn);
-    this.removeEventListener("click", tictactoe);
+        this.setAttribute("class", "block " + turn);
+        this.removeEventListener("click", tictactoe);
 
-    if(winner(turn) == ""){
-        if(turn == "x"){
-            turn = "o";
+        if(winner(turn) == ""){
+            if(turn == "x"){
+                turn = "o";
+            }else{
+                turn = "x";
+            }
+        }else if(winner(turn) == "draw"){
+            document.getElementById("winner").innerHTML = "Draw";
+            document.getElementById("retry").style.display = "block";
+            game_end == true;
+            turn = "";
         }else{
-            turn = "x";
+            document.getElementById("winner").innerHTML = turn + " team is winner";
+            document.getElementById("retry").style.display = "block";
+            game_end = true;
+            turn = "";
         }
-    }else{
-        document.getElementById("winner").innerHTML = turn + " team is winner";
-        document.getElementById("retry").style.display = "block";
-        turn = "";
     }
-
-
-
 }
 
 function retry(){
@@ -131,5 +152,6 @@ function retry(){
     document.getElementsByClassName("matrix-input-block")[0].style.display = "block";
     document.getElementById("winner").innerHTML = "";
     document.getElementById("retry").style.display = "none";
+    game_end = false;
     turn = "x";
 }
